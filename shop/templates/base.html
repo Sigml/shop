@@ -1,0 +1,32 @@
+{% comment %} {% load static %} {% endcomment %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Shop</title>
+
+</head>
+
+<body>
+    <header class='header-conteiner'>
+        <div class='logo'>
+            <h1><a href='/'>Shop</h1>  
+        </div>
+        <div class='login-conteiner'>
+            {% if user.is_authenticated %}
+            {{user.profile_picture}}
+            <a href={% url 'user_info'%}>Witaj, {{ user.username }}</a> <a href="{% url 'logout' %}">Wyloguj</a>
+            {% else %}
+                <a href="{% url 'login' %}">Załoguj</a>
+            {% endif %}
+
+        </div>
+    </header>
+</body>
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>

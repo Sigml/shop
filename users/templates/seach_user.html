@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class='login'>
+    <form action="" method='post'>
+        {% csrf_token %}
+        {{ form.email }}
+        {% if form.errors %}
+            <div class="error-message">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <button type="submit">Dalej</button>
+        <h2>Nie masz konta <a href="{% url 'registration' %}">Zarejestruj się</a></h2>
+    </form>
+  </div>
+{% endblock %}

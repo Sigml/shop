@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class=''>
+    <label>Username:</label>
+        {{form.username}}  
+        <br> 
+    <label>Imię:</label>
+        {{form.first_name}} 
+        <br>   
+    <label>Nazwiśko:</label>
+        {{form.last_name}} 
+        <br>   
+    <label>Email:</label>
+        {{form.email}}   
+        <br> 
+    <label>Numer telefonu:</label>
+        {{form.number_phone}} 
+         <br> 
+    <label>Data urodzenia:</label>
+        {{form.date_of_birth}}  
+        <br>  
+    <label>O sobię:</label>
+        {{form.description}}   
+</div>
+<a href ='{% url 'user_update'%}'>Zmień dane</a>
+{% endblock  %}
