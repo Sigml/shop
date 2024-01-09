@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import TextInput, CharField, PasswordInput, EmailField, ImageField, DateInput, IntegerField, DateField
+from django.forms import TextInput, CharField, PasswordInput, EmailField, ImageField, DateInput, IntegerField, DateField, ClearableFileInput
 from .models import CustomUser
 
 
@@ -81,7 +81,7 @@ class ResetPasswordForm(forms.Form):
 class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'first_name', 'last_name', 'number_phone', 'date_of_birth', 'description']
+        fields = ['username', 'email', 'first_name', 'last_name', 'number_phone', 'date_of_birth', 'description', 'profile_picture']
         widgets = {
     'username' : TextInput(attrs={
         'class': 'form-control',
@@ -112,5 +112,9 @@ class UserProfileUpdateForm(forms.ModelForm):
     'description': TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'O sobię'
+    }),
+    'profile_picture': ClearableFileInput(attrs={
+        'class':'form-control',
+        'palceholder': 'Zdięcie'
     })
     }

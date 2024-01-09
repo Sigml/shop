@@ -34,5 +34,4 @@ urlpatterns = [
     path('reset_password/<uidb64>/<token>/', ResetPasswordV2View.as_view(), name='reset_password'),
     path('user/info/', UserInfoView.as_view(), name='user_info'),
     path('user/update/', UserProfileUpdateView.as_view(), name='user_update')
-
 ]
