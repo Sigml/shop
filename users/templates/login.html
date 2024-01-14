@@ -3,7 +3,9 @@
     <div class='login'>
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
+            <label>Email:</label>
             {{ form.email }}
+            <label>Hasło:</label>
             {{ form.password }}
             {% if form.errors %}
                 <div class="error-message">

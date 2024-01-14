@@ -20,6 +20,9 @@ from django.views.generic import TemplateView
 from users.views import (RegisterView, LoginView, LogoutView, EmailVerifyView, ResetPasswordView, ResetPasswordV2View, UserInfoView,
      UserProfileUpdateView )
 from shop.views import main
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,3 +38,6 @@ urlpatterns = [
     path('user/info/', UserInfoView.as_view(), name='user_info'),
     path('user/update/', UserProfileUpdateView.as_view(), name='user_update')
 ]
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

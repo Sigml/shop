@@ -1,34 +1,28 @@
-<body>
-<div class="login-form">
-
-<br>
+{%extends 'base.html'%}
+{%block content%}
+<div class="login">
 
     <form action="" method="post">
         {% csrf_token %}
-    <h2>Rejestracja użytkownika</h2>
-        {{ form.username }}
+
+        <h2>Rejestracja użytkownika:</h2>
         <br>
-        <br>
-        {{ form.first_name }}
-        <br>
-        <br>
-        {{ form.last_name }}
-        <br>
-        <br>
-        {{ form.email }}
-        <br>
-        <br>
-        {{ form.password }}
-        <br>
-        <br>
-        {{ form.password_confirmation }}
-        <br>
-        <br>
-        {{ form.errors }}
+        <label>Nick:</label>
+            {{ form.username }}
+            <label>Imię:</label>
+            {{ form.first_name }}
+            <label>Nazwiśko:</label>
+            {{ form.last_name }}
+            <label>Email:</label>
+            {{ form.email }}
+            <label>Hasło:</label>
+            {{ form.password }}
+            <label>Powtórz hasło:</label>
+            {{ form.password_confirmation }}
 
 
-    <button type="submit">Zarejestruj</button>
-    <br>
+        <button type="submit">Zarejestruj</button>
+
     <div class="error-message">
 
              {% if form.errors %}
@@ -44,7 +38,6 @@
 
         </div>
 
-
     </form>
 </div>
-</body>
+{%endblock%}

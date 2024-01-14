@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class=''>
+<div class='user-info'>
+    <label>Foto:</label>
+    {% if user.profile_picture %}
+    <img src="{{ user.profile_picture.url }}" alt="User Avatar" width="50" height="50">
+{% endif %}
+    <br> 
     <label>Username:</label>
         {{form.username}}  
         <br> 
     <label>Imię:</label>
         {{form.first_name}} 
-        <br>   
+        <br> 
     <label>Nazwiśko:</label>
         {{form.last_name}} 
         <br>   
@@ -22,6 +27,8 @@
         <br>  
     <label>O sobię:</label>
         {{form.description}}   
+        <br>  
+
+<h2><a href ='{% url 'user_update'%}'>Zmień dane</a></h2>
 </div>
-<a href ='{% url 'user_update'%}'>Zmień dane</a>
 {% endblock  %}

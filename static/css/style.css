@@ -1,0 +1,207 @@
+/* Resetowanie niektórych domyślnych stylów przeglądarki */
+body, h1, h2, h3, p, a {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+}
+
+.header-container {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 36px;
+}
+
+.logo a:hover {
+  color: #ccc; /* Kolor tekstu linków po najechaniu myszką */
+}
+
+
+.login-container {
+  text-align: center;
+}
+
+.login-container img {
+  border-radius: 50%; /* Zaokrąglony kształt zdjęcia */
+  margin: 0 auto;
+  display: block;
+}
+
+.login-container a {
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.login-container a:hover {
+  color: #ccc; /* Kolor tekstu linków po najechaniu myszką */
+}
+
+.content-container {
+  padding: 20px;
+}
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+/* Strona logowania */
+.login {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.error-message {
+  color: #ff0000;
+  margin-bottom: 15px;
+}
+
+h2 {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #555;
+}
+
+/* Zmiana koloru dla linków wewnątrz h2 */
+h2 a {
+  color: #0481ffef; /* Domyślny kolor linków */
+}
+
+h2 a:hover {
+  color: #0056b3; /* Kolor linków po najechaniu myszką */
+}
+
+
+.user_update label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.user_update input, .user_update textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.user_update button {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.user_update button:hover {
+  background-color: #555;
+}
+
+.error-message {
+  color: #ff0000;
+  margin-top: 15px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.error-message li {
+  margin-bottom: 5px;
+}
+
+.error-message.error {
+  color: #ff0000;
+}
+
+.error-message.success {
+  color: #008000;
+}
+
+.user-info {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+}
+
+.user-info label {
+  margin-bottom: 5px;
+}
+
+.user-info label, .user-info span {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.user-info img {
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.user-info h2 a {
+  margin-top: 15px;
+  text-decoration: none;
+  color: #0481ffef;
+}
+
+.user-info h2 a:hover {
+  color: #0056b3;
+}

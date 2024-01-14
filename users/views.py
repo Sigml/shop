@@ -181,6 +181,7 @@ class UserInfoView(View):
     def get (self, request):
         if request.user.is_authenticated:
             user_info = {
+                'profile_picture': request.user.profile_picture,
                 'username': request.user.username,
                 'email': request.user.email,
                 'first_name': request.user.first_name,
@@ -196,33 +197,6 @@ class UserInfoView(View):
         else:
             return redirect('login')
         
-# class UserProfileUpdateView(View):
-#     def get (self, request):
-#         form = UserProfileUpdateForm()
-#         return render (request, 'user_update.html', {'form':form})
-    
-#     def post (self, request):
-#         model = CustomUser
-#         form = UserProfileUpdateForm(request.POST)
-#         if form.is_valid():
-#             cleaned_data = form.cleaned_data
-#             user = request.user
-
-#             user.username = cleaned_data['username']
-#             user.email = cleaned_data['email']
-#             user.first_name = cleaned_data['first_name']
-#             user.last_name = cleaned_data['last_name']
-#             user.number_phone = cleaned_data['number_phone']
-#             user.date_of_birth = cleaned_data['date_of_birth']
-#             user.description = cleaned_data['description']
-
-#             user.save()
-
-#             return redirect('user_info')
-#         else:
-#             messages.error(request, 'Formularz jest nieprawidłowy. Sprawdź wprowadzone dane.')
-        
-#         return render(request, 'user_update.html', {'form':form})
             
 class UserProfileUpdateView(UpdateView):
     model = CustomUser
@@ -232,3 +206,10 @@ class UserProfileUpdateView(UpdateView):
     
     def get_object(self, queryset=None):
         return self.request.user
+
+    def form_valid(self, form):
+        profile_picture = self.request.FILES.get('profile_picture')
+        if profile_picture:
+            form.instance.profile_picture = profile_picture
+
+        return super().form_valid(form)

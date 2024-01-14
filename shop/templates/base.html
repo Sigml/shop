@@ -1,32 +1,32 @@
-{% comment %} {% load static %} {% endcomment %}
+{% load static %}
 <!DOCTYPE html>
 <html lang='en'>
 <head>
     <meta charset='UTF-8'>
     <title>Shop</title>
-
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
-    <header class='header-conteiner'>
+    <header class='header-container'>
         <div class='logo'>
-            <h1><a href='/'>Shop</h1>  
+            <h1><a href='/'>Shop</a></h1>
         </div>
-        <div class='login-conteiner'>
+        <div class='login-container'>
             {% if user.is_authenticated %}
-            {{user.profile_picture}}
-            <a href={% url 'user_info'%}>Witaj, {{ user.username }}</a> <a href="{% url 'logout' %}">Wyloguj</a>
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="User Avatar" width="50" height="50">
+                {% endif %}
+                <a href="{% url 'user_info' %}">Witaj, {{ user.username }}</a>
+                <br> <a href="{% url 'logout' %}">Wyloguj</a>
             {% else %}
-                <a href="{% url 'login' %}">Załoguj</a>
+                <a href="{% url 'login' %}">Zaloguj</a>
             {% endif %}
-
         </div>
     </header>
-</body>
 
-{% block content %}
-
-{% endblock %}
-
+    <div class='content-container'>
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>

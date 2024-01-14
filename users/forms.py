@@ -115,6 +115,15 @@ class UserProfileUpdateForm(forms.ModelForm):
     }),
     'profile_picture': ClearableFileInput(attrs={
         'class':'form-control',
-        'palceholder': 'Zdięcie'
+        'plceholder': 'Zdięcie'
     })
     }
+        
+    date_of_birth = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Data urodzenia'
+            }
+        )
+    )
