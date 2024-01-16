@@ -10,7 +10,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password', 'password_confirmation', 'first_name', 'last_name')
+        fields = ('username', 'email', 'password', 'password_confirmation', 'first_name', 'last_name', 'date_of_birth')
         widgets = {
 
             'username': TextInput(attrs={
