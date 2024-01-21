@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}  
+<h1> Lista: pasuję do...</h1>
+<ul>
+    {% for item in object_list %}
+        <li>{{item.name_product}} <a href="{% url 'matches_with_delete' pk=item.pk%}" style= "color:red;">usuń z listy</a></li> 
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Dostępne marki</h1>
+
+<ul>
+    {% for item in object_list %}
+        <li>{{ item.name_brand }} - 
+        <img src="{{ item.image_brand.url }}" alt="{{ item.name_brand }}" style="max-width: 20px; max-height: 20px;">
+        <a href ="{% url 'brand_delete' pk=item.pk%}" style="color: red;">usuń z listy</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 from .models import Category, Review, Brand, MatchesWith, Product
 from django import forms
-from django.forms import CharField, TextInput, ChoiceField, Select, ClearableFileInput, CheckboxInput
+from django.forms import CharField, TextInput, ChoiceField, Select, ClearableFileInput, CheckboxInput, SelectMultiple
+from django_select2.forms import Select2Widget
 
 
 class CategoryCreateForm(forms.ModelForm):
@@ -15,7 +16,7 @@ class CategoryCreateForm(forms.ModelForm):
         }
 
 
-class ReviewForm(forms.ModelForm):
+class ReviewCreateForm(forms.ModelForm):
     RATING_CHOICES = [
         (1, '1'),
         (2, '2'),
@@ -24,18 +25,17 @@ class ReviewForm(forms.ModelForm):
         (5, '5'),
     ]
 
-
     class Meta:
         model = Review
         fields = ('user', 'text', 'rating')
         widgets = {
             'text': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder':'opinia'
+                'placeholder': 'opinia'
             }),
-            'rating':Select(attrs={
+            'rating': Select(attrs={
                 'class': 'form-control'
-                }, choices=RATING_CHOICES)
+            },choices='RATING_CHOICES')
         }
 
 
@@ -53,6 +53,12 @@ class BrandCreateForm(forms.ModelForm):
             })
         }
 
+    def clean_image_brand(self):
+        image_brand = self.cleaned_data.get('image_brand', False)
+        if not image_brand:
+            raise forms.ValidationError("To pole jest wymagane.")
+        return image_brand
+
 
 class MatchesWithCreateForm(forms.ModelForm):
     class Meta:
@@ -66,7 +72,7 @@ class MatchesWithCreateForm(forms.ModelForm):
         }
 
 
-class PoductCreateForm(forms.ModelForm):
+class ProductCreateForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ('name', 'price', 'description', 'category', 'image', 'stock_quantity', 'brand', 'matches_with', 'is_featured')
@@ -83,7 +89,7 @@ class PoductCreateForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Opis produktu'
             }),
-            'category': TextInput(attrs={
+            'category': Select(attrs={
                 'class': 'form-control',
                 'placeholder': 'Kategoria'
             }),
@@ -94,11 +100,11 @@ class PoductCreateForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Ilość na stanie'
             }),
-            'brand': TextInput(attrs={
+            'brand': Select (attrs={
                 'class': 'form-control',
                 'placeholder': 'Nazwa brendu'
             }),
-            'matches_with': TextInput(attrs={
+            'matches_with': SelectMultiple(attrs={
                 'class': 'form-control',
                 'placeholder': 'Pasuje do...'
             }),
@@ -108,7 +114,7 @@ class PoductCreateForm(forms.ModelForm):
         }
 
 
-class PoductUpdateForm(forms.ModelForm):
+class ProductUpdateForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ('name', 'price','discount_price', 'description', 'category', 'image', 'stock_quantity', 'brand', 'matches_with', 'is_featured')

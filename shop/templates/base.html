@@ -24,6 +24,18 @@
             {% endif %}
         </div>
     </header>
+    {% if user.is_staff %}
+        <div class="staff_link">
+            <a href="{% url 'category_all' %}">Dostępne kategorie</a>
+            <a href="{% url 'category_create' %}">Dodaj nową kategorię</a>
+            <a href="{% url 'brand_all' %}">Dostępne marki</a>
+            <a href="{% url 'brand_create' %}">Dodaj markę</a>
+            <a href="{% url 'matches_with_all' %}">Lista pasuje do...</a>
+            <a href="{% url 'matches_with_create' %}">Dodaj pasuje do...</a>
+            <a href="{% url 'products_all' %}">Wszystkie produkty</a>
+            <a href="{% url 'product_create' %}">Dodaj produkt</a>
+        </div>
+    {% endif %}
 
     <div class='content-container'>
         {% block content %}{% endblock %}

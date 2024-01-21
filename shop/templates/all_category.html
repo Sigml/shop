@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Dostępne kategorie</h1>
+
+<ul>
+    {% for item in object_list %}
+        <li>{{ item.name_category }} <a href={% url 'category_delete' pk=item.pk %} style="color: red;" >usuń z listy</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

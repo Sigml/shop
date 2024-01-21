@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ul>
+    {% for item in object_list %}
+    <li>{{item.name}}</li>
+    <li>{{item.price}}</li>
+    <li>{{item.discount_price}}</li>
+    <li>{{item.description}}</li>
+    <li>{{item.category}}</li>
+    <li>{{item.grade}}</li>
+    <li>{{item.image}}</li>
+    <li>{{item.stock_quantity}}</li>
+    <li>{{item.reviews}}</li>
+    <li>{{item.is_featured}}</li>
+    <li>{{item.brand}}</li>
+    <li>{{item.matches_with}}</li>
+    <a href="{% url 'product_delete' pk=item.pk %}" style="color:red;">usuń z listy</a>
+    {% endfor %}
+
+</ul>
+
+{% endblock %}

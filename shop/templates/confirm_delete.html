@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Potwierdź usunięcie marki</h2>
+  <form method="post">
+    {% csrf_token %}
+    <p>Czy na pewno chcesz usunąć "{{ object }}"?</p>
+    <button type="submit" class="button-delete">Usuń</button>
+  </form>
+{% endblock %}
