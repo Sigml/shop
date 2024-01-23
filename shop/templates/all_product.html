@@ -3,18 +3,28 @@
 
 <ul>
     {% for item in object_list %}
-    <li>{{item.name}}</li>
-    <li>{{item.price}}</li>
-    <li>{{item.discount_price}}</li>
-    <li>{{item.description}}</li>
-    <li>{{item.category}}</li>
-    <li>{{item.grade}}</li>
-    <li>{{item.image}}</li>
-    <li>{{item.stock_quantity}}</li>
-    <li>{{item.reviews}}</li>
-    <li>{{item.is_featured}}</li>
-    <li>{{item.brand}}</li>
-    <li>{{item.matches_with}}</li>
+    <li><img src="{{item.images.url}}" alt="{{item.images}}" style="max-width: 50px; max-height: 50px;"></li>
+    <li>Nazwa: {{item.name}}</li>
+    <li>Cena: {{item.price}}</li>
+    <li>
+        {% if item.discount_price %}
+            Promocyjna cena: {{ item.discount_price }}
+        {% else %}
+            Promocyjna cena: Nie ma promocyjnej ceny
+        {% endif %}
+    </li>
+    <li>Opis: {{item.description}}</li>
+    <li>Kategoria: {{item.category}}</li>
+    <li>Na stanie: {{item.stock_quantity}}</li>
+    {% for review in item.reviews.all %}
+        <li>średnia ocena: {{ review.rating }}</li>
+    {% endfor %}
+    <li>Wyróżniony: {% if item.is_featured %}Tak{% else %}Nie{% endif %}</li>
+    <li>Producent: {{item.brand}}</li>
+    {% for match in item.matches_with.all %}
+        <li>Pasuje do: {{ match.name_product }}</li>
+    {% endfor %}
+    <a href ="{% url 'product_update' pk=item.pk %}" style="color:green;">zmień opis</a>
     <a href="{% url 'product_delete' pk=item.pk %}" style="color:red;">usuń z listy</a>
     {% endfor %}
 

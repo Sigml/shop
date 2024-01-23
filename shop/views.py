@@ -84,7 +84,14 @@ class ProductCreateView(AdminRequiredMixin, CreateView):
     success_url = reverse_lazy('product_create')
 
 
+class ProductUpdateView(AdminRequiredMixin, UpdateView):
+    model = Product
+    form_class = ProductUpdateForm
+    template_name = 'form.html'
+    success_url = reverse_lazy('products_all')
+
+
 class ProductDeleteView(AdminRequiredMixin, DeleteView):
     model = Product
     template_name = 'confirm_delete.html'
-    success_url = reverse_lazy('all_products')
+    success_url = reverse_lazy('products_all')

@@ -75,7 +75,7 @@ class MatchesWithCreateForm(forms.ModelForm):
 class ProductCreateForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'price', 'description', 'category', 'image', 'stock_quantity', 'brand', 'matches_with', 'is_featured')
+        fields = ('name', 'price', 'description', 'category', 'images', 'stock_quantity', 'brand', 'matches_with', 'is_featured')
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
@@ -93,7 +93,7 @@ class ProductCreateForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Kategoria'
             }),
-            'image': ClearableFileInput(attrs={
+            'images': ClearableFileInput(attrs={
                 'class': 'form-control',
             }),
             'stock_quantity': TextInput(attrs={
@@ -117,7 +117,7 @@ class ProductCreateForm(forms.ModelForm):
 class ProductUpdateForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'price','discount_price', 'description', 'category', 'image', 'stock_quantity', 'brand', 'matches_with', 'is_featured')
+        fields = ('name', 'price','discount_price', 'description', 'category', 'images', 'stock_quantity', 'brand', 'matches_with', 'is_featured')
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
@@ -135,22 +135,22 @@ class ProductUpdateForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Opis produktu'
             }),
-            'category': TextInput(attrs={
+            'category': Select(attrs={
                 'class': 'form-control',
                 'placeholder': 'Kategoria'
             }),
-            'image': ClearableFileInput(attrs={
+            'images': ClearableFileInput(attrs={
                 'class': 'form-control',
             }),
             'stock_quantity': TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Ilość na stanie'
             }),
-            'brand': TextInput(attrs={
+            'brand': Select(attrs={
                 'class': 'form-control',
                 'placeholder': 'Nazwa brendu'
             }),
-            'matches_with': TextInput(attrs={
+            'matches_with': SelectMultiple(attrs={
                 'class': 'form-control',
                 'placeholder': 'Pasuje do...'
             }),
