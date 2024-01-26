@@ -4,6 +4,7 @@ from users.models import CustomUser
 # Create your models here.
 class Category(models.Model):
     name_category = models.CharField(max_length = 100)
+    image_category = models.ImageField(upload_to='category_images/', null=True)
 
 
     def __str__(self):

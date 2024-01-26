@@ -4,7 +4,16 @@
 
 <ul>
     {% for item in object_list %}
-        <li>{{ item.name_category }} <a href={% url 'category_delete' pk=item.pk %} style="color: red;" >usuń z listy</a></li>
+    
+        <li>{{ item.name_category }} 
+            {% if item.image_category %}
+             <img src="{{item.image_category.url}}" alt={{item.name_category}} style="max-width: 50px; max-height: 50px;">
+            {% else %}
+                <p>Brak obrazu</p>
+            {% endif %}
+            <a href={% url 'category_update' pk=item.pk %} style="color:green;">zmień</a>
+            <a href={% url 'category_delete' pk=item.pk %} style="color: red;" >usuń z listy</a>
+        </li>
     {% endfor %}
 </ul>
 {% endblock %}

@@ -1,6 +1,12 @@
-
 {% extends "base.html" %}
-{%block content%}
-<h2> sdadasda </h2>
 
-{%endblock%}
+{% block content %}
+<div class="category">
+    {% for category in all_category %}
+    <div class="category-item">
+        <img src="{{ category.image_category.url }}" alt="{{ category.name_category }}">
+        <a href="{% url 'products' category=category.name_category %}">{{ category.name_category }}</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,18 +1,21 @@
 from .models import Category, Review, Brand, MatchesWith, Product
 from django import forms
 from django.forms import CharField, TextInput, ChoiceField, Select, ClearableFileInput, CheckboxInput, SelectMultiple
-from django_select2.forms import Select2Widget
+
 
 
 class CategoryCreateForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ('name_category',)
+        fields = ('name_category', 'image_category')
         widgets = {
             'name_category': TextInput(attrs={
                 'class': 'form-control',
                 'placeholder':'Nazwa Kategorii'
-            })
+            }),
+            'image_category':ClearableFileInput(attrs={
+                'class':'form-control',
+            }),
         }
 
 

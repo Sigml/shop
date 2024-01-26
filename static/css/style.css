@@ -238,3 +238,33 @@ h2 a:hover {
 .button-delete:hover {
   background-color: darkred;
 }
+
+.category {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+
+.category-item {
+  text-align: center;
+  margin: 10px;
+}
+
+.category img {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.category a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.category a:hover {
+  color: #555;
+}
