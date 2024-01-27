@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='product_info'>
+    <ul>
+        {% for item in products %}
+        <li>
+            <div class="product_item">
+                <div class="left_column">
+                    <img src="{{ item.images.url }}" alt="{{ item.images }}">
+                    <div class="product_details">
+                        <h2>{{ item.name }}</h2>
+                        {% if item.stock_quantity == 0 %}
+                        <p class="stock">Nie ma na stanie</p>
+                        {% else %}
+                        {% if item.discount_price %}
+                        <p>Cena: <s>{{ item.price }}</s> <span class="discount">{{ item.discount_price }}</span></p>
+                        {% else %}
+                        <p>Cena: {{ item.price }}</p>
+                        {% endif %}
+                        {% endif %}
+                        <p>Opis: {{ item.description }}</p>
+                        <p>Kategoria: {{ item.category }}</p>
+                        <p>Na stanie: {{ item.stock_quantity }}</p>
+                        <p>Wyróżniony: {% if item.is_featured %}Tak{% else %}Nie{% endif %}</p>
+                        <p>Producent: {{ item.brand }}</p>
+                        {% for match in item.matches_with.all %}
+                        <p>Pasuje do: {{ match.name_product }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <d
+                <div class="right_column">
+                    <div class="new_reviews">
+                        <form action='' method=post>
+                            {% csrf_token %}
+                            {{form.text}}
+                            {{form.rating}}
+                        </form>
+                    </div>
+                    <div class="reviews">
+                        <h3>Recenzje</h3>
+                        {% for review in item.reviews.all %}
+                            <div class="review">
+                                <p>Recenzja od {{ review.user.username }} - Ocena: {{ review.rating }}</p>
+                                <p>Data recenzji: {{ review.created_at }}</p>
+                                <p>Treść recenzji: {{ review.text }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

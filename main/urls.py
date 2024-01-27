@@ -23,7 +23,7 @@ from users.views import (RegisterView, LoginView, LogoutView, EmailVerifyView, R
                         UserProfileUpdateView )
 from shop.views import (main, CategoryAdminCreateView, CategoryAdminListView, CategoryAdminDeleteView, BrandAdminListView, BrandAdminCreateView, BrandAdminDeleteView, 
                         MatchesWithAdminListView, MatchesWithAdminCreateView, MatchesWithAdminDeleteView, ProductAdminListView, ProductAdminCreateView, 
-                        ProductAdminDeleteView, ProductAdminUpdateView, ProductInCategoryListView, CategoryAdminUpdateView
+                        ProductAdminDeleteView, ProductAdminUpdateView, ProductInCategoryListView, CategoryAdminUpdateView, ProductPage
                         )
 
 
@@ -55,6 +55,8 @@ urlpatterns = [
     path('product_delete/<int:pk>/', ProductAdminDeleteView.as_view(), name='product_delete'),
     path('product/update/<int:pk>/', ProductAdminUpdateView.as_view(), name='product_update'),
     path('<category>/', ProductInCategoryListView.as_view(), name='products'),
+    path('<category>/<int:pk>', ProductPage.as_view(), name='product_info')
+    
 
 ]
 

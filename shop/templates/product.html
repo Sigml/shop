@@ -1,31 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <div class='product'>
-        {% for item in products %}
-        <li><img src="{{item.images.url}}" alt="{{item.images}}"></li>
-        <li>Nazwa: {{item.name}}</li>
-        <li>Cena: {{item.price}}</li>
-        <li>
-            {% if item.discount_price %}
-                Promocyjna cena: {{ item.discount_price }}
-            {% else %}
-                Promocyjna cena: Nie ma promocyjnej ceny
-            {% endif %}
-        </li>
-        <li>Opis: {{item.description}}</li>
-        <li>Kategoria: {{item.category}}</li>
-        <li>Na stanie: {{item.stock_quantity}}</li>
-        {% for review in item.reviews.all %}
-            <li>średnia ocena: {{ review.rating }}</li>
-        {% endfor %}
-        <li>Wyróżniony: {% if item.is_featured %}Tak{% else %}Nie{% endif %}</li>
-        <li>Producent: {{item.brand}}</li>
-        {% for match in item.matches_with.all %}
-            <li>Pasuje do: {{ match.name_product }}</li>
-        {% endfor %}
-        {% endfor %}
-    
+<div class='product'>
+    {% for item in products %}
+    <div>
+        <img src="{{ item.images.url }}" alt="{{ item.images }}">
+        <h2><a href={% url 'product_info' category=item.category.name_category pk=item.pk %}>{{ item.name }}</a></h2>
+        {% if item.stock_quantity == 0 %}
+        <p class="stock">Nie ma na stanie</p>
+        {% else %}
+        {% if item.discount_price %}
+        <p>Cena: <s>{{ item.price }}</s> <span class="discount">{{ item.discount_price }}</span></p>
+        {% else %}
+        <p>Cena: {{ item.price }}</p>
+        {% endif %}
+        {% endif %}
     </div>
+    {% endfor %}
+</div>
 
 {% endblock %}

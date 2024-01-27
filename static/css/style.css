@@ -268,3 +268,71 @@ h2 a:hover {
 .category a:hover {
   color: #555;
 }
+
+/* Dodaj te style do swojego arkusza stylów */
+
+.product_info {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.product_info ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product_item {
+  width: 100%;
+  display: flex;
+}
+
+.left_column {
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.right_column {
+  flex-basis: 30%; /* Lub dostosuj do swoich potrzeb */
+}
+
+.product_details img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.product_details h2 {
+  margin: 10px 0;
+  color: #333;
+}
+
+.product_details s {
+  color: #999;
+}
+
+.product_details p {
+  margin: 0;
+}
+
+.product_details p.stock {
+  color: #ff0000;
+}
+
+.product_details p.discount {
+  color: #555;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+.reviews {
+  padding: 10px;
+}
+
+.review {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}

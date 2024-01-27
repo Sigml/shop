@@ -1,8 +1,9 @@
+from typing import Any
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView
-from .forms import CategoryCreateForm, ReviewCreateForm, BrandCreateForm, MatchesWithCreateForm, ProductCreateForm, ProductUpdateForm
+from .forms import CategoryCreateForm, ReviewCreateForm, BrandCreateForm, MatchesWithCreateForm, ProductCreateForm, ProductUpdateForm, ReviewCreateForm
 from .models import Category, Review, Brand, MatchesWith, Product
 
 # Create your views here.
@@ -120,4 +121,25 @@ class ProductInCategoryListView(ListView):
     
     def get_queryset(self):
         category_name = self.kwargs['category']
-        return Product.objects.filter(category__name_category=category_name)
+        category_products = Product.objects.filter(category__name_category=category_name)
+
+        sorted_products = sorted(category_products, key=lambda x: not x.is_featured)
+        
+        return sorted_products
+    
+    
+class ProductPage(ListView, CreateView):
+    model = Product
+    template_name = 'product_info.html'
+    context_object_name = 'products'
+    form_class = ReviewCreateForm
+    
+    def get_queryset(self):
+        product_pk = self.kwargs['pk']
+        product_info = Product.objects.filter(pk=product_pk)
+        return product_info
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        return context
