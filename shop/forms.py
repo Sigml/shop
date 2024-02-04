@@ -164,17 +164,17 @@ class ProductUpdateForm(forms.ModelForm):
         }
         
 
+    
 class ReviewCreateForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ('text', 'rating')
         widgets = {
             'text': TextInput(attrs={
-                'class':'form-control',
+                'class': 'form-control',
                 'placeholder': 'Komentarz'
             }),
             'rating': Select(attrs={
-                'class':'form-control'
+                'class': 'form-control'
             })
         }
-    

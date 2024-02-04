@@ -21,25 +21,15 @@
                         {% endif %}
                         <p>Opis: {{ item.description }}</p>
                         <p>Kategoria: {{ item.category }}</p>
-                        <p>Na stanie: {{ item.stock_quantity }}</p>
-                        <p>Wyróżniony: {% if item.is_featured %}Tak{% else %}Nie{% endif %}</p>
                         <p>Producent: {{ item.brand }}</p>
                         {% for match in item.matches_with.all %}
                         <p>Pasuje do: {{ match.name_product }}</p>
                         {% endfor %}
                     </div>
                 </div>
-                <d
                 <div class="right_column">
-                    <div class="new_reviews">
-                        <form action='' method=post>
-                            {% csrf_token %}
-                            {{form.text}}
-                            {{form.rating}}
-                        </form>
-                    </div>
                     <div class="reviews">
-                        <h3>Recenzje</h3>
+                        <h3>Recenzje:</h3>
                         {% for review in item.reviews.all %}
                             <div class="review">
                                 <p>Recenzja od {{ review.user.username }} - Ocena: {{ review.rating }}</p>
@@ -48,11 +38,20 @@
                             </div>
                         {% endfor %}
                     </div>
+                    <div class='new_review'>
+                        {% for product_item in products %}
+                        <a href="{% url 'product_review' category=product_item.category pk=product_item.pk %}">
+                            <button type='submit'>
+                                <h3>Dodaj opinię</h3>
+                            </button>
+                        </a>
+                    {% endfor %}
+                    </div>
                 </div>
             </div>
         </li>
         {% endfor %}
     </ul>
-</div>
+</div> 
 
 {% endblock %}

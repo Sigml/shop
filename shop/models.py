@@ -11,17 +11,6 @@ class Category(models.Model):
         return self.name_category
     
     
-class Review(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    text = models.TextField(null=True)
-    rating = models.IntegerField(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
-    created_at = models.DateTimeField(auto_now_add=True)
-
-
-    def __str__(self):
-        return f"{self.user.username} - {self.rating}"
-    
-    
 class Brand(models.Model):
     name_brand = models.CharField(max_length=50)
     image_brand = models.ImageField(upload_to='brand_images/')
@@ -51,7 +40,19 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     images = models.ImageField(upload_to='product_images/', default='default_image.jpg')
     stock_quantity = models.PositiveIntegerField(default=0)
-    reviews = models.ManyToManyField(Review, null=True)
     is_featured = models.BooleanField(default=False)
     brand = models.ForeignKey(Brand, on_delete = models.CASCADE)
     matches_with = models.ManyToManyField(MatchesWith)
+    
+        
+class Review(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    text = models.TextField(null=True)
+    rating = models.IntegerField(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
+    created_at = models.DateTimeField(auto_now_add=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.rating}"
+    
+    
