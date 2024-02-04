@@ -1,1 +1,16 @@
-<h1>test</h1>
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <h1>Dodaj do koszyka</h1>
+    
+      {{ product.name }}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Dodaj do koszyka</button>
+    </form>
+  </div>
+  
+
+{% endblock %}

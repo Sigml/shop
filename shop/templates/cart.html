@@ -2,11 +2,11 @@
 
 {% block content %}
   <h1>Koszyk</h1>
-
+  <h3>Twoje zamowinie</h3>
   {% if cart_items %}
     <ul>
       {% for item in cart_items %}
-        <li>{{ item.product.name }} - Quantity: {{ item.quantity }} - Price: {{ item.price }}</li>
+        <li>{{ item.product.name }} - Ilosc: {{ item.quantity }} - Cena: {{ item.price }}</li>
       {% endfor %}
     </ul>
   {% else %}

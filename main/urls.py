@@ -31,6 +31,8 @@ from shop.views import (main, CategoryAdminCreateView, CategoryAdminListView, Ca
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main, name='main'),
+    path('add_to_cart/<int:pk>/', AddToCartViev.as_view(), name='add_to_cart'),
+    path('cart/', ShoppingCartView.as_view(), name='cart'),
     path('registration/', RegisterView.as_view(), name='registration'),
     path('user/login/', LoginView.as_view(), name='login'),
     path('user/logout/', LogoutView.as_view(), name='logout'),
@@ -58,9 +60,7 @@ urlpatterns = [
     path('<category>/', ProductInCategoryListView.as_view(), name='products'),
     path('<category>/<int:pk>/', ProductPageListView.as_view(), name='product_info'),
     path('<category>/<pk>/review/', ProductPageReviewCreateView.as_view(), name='product_review'),
-    path('add_to_cart/<int:pk>/', AddToCartViev.as_view(), name='add_to_cart'),
-    path('cart/', ShoppingCartView.as_view(), name='cart')
-    
+
 
 ]
 

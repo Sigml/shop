@@ -162,8 +162,8 @@ class ProductPageReviewCreateView(LoginRequiredMixin, CreateView):
 
 
 class AddToCartViev(LoginRequiredMixin, View):
-    def get(self, request, product_id, *args, **kwargs):
-        product = Product.objects.get(pk=product_id)
+    def get(self, request, pk, *args, **kwargs):
+        product = Product.objects.get(pk=pk)
         form = AddToCartForm()
         context = {
             'form':form,
@@ -171,14 +171,13 @@ class AddToCartViev(LoginRequiredMixin, View):
         }
         return render(request, 'add_to_cart.html', context)
     
-    def post(self, request,product_id, *args, **kwargs):
+    def post(self, request,pk, *args, **kwargs):
         form = AddToCartForm(request.POST)
         if form.is_valid():
             quantity = form.cleaned_data['quantity']
-            # product_id = kwargs.get('product_id')
-            product = Product.objects.get(pk=product_id)
+            product = Product.objects.get(pk=pk)
             price = product.price
-            OrderItem.objects.create(user=request.user, product=product_id, quantity=quantity, price=price)
+            OrderItem.objects.create(user=request.user, product=product, quantity=quantity, price=price)
             return redirect('cart')
     
     
