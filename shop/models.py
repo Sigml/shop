@@ -55,4 +55,22 @@ class Review(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.rating}"
     
+
+class OrderItem(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    date_added = models.DateTimeField(auto_now_add=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     
+    
+class DeliveryInfo(models.Model):
+    order_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
+    recipient_name = models.CharField(max_length=100)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    zip_code = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=20)
+    shipping_method = models.CharField(max_length=255)
+    method_pay = models.CharField(max_length=50)
+    is_delivered = models.BooleanField(default=False)
