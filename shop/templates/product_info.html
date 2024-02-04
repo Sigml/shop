@@ -24,6 +24,9 @@
                         <p>Producent: {{ item.brand }}</p>
                         {% for match in item.matches_with.all %}
                         <p>Pasuje do: {{ match.name_product }}</p>
+                        <a href="{% url 'add_to_cart' pk=item.id %}">
+                            <button type='submit'>Dodaj do koszyka</button>
+                            </a>
                         {% endfor %}
                     </div>
                 </div>

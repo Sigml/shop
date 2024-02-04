@@ -4,8 +4,9 @@ from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView
-from .forms import CategoryCreateForm, ReviewCreateForm, BrandCreateForm, MatchesWithCreateForm, ProductCreateForm, ProductUpdateForm, ReviewCreateForm
-from .models import Category, Review, Brand, MatchesWith, Product
+from .forms import (CategoryCreateForm, ReviewCreateForm, BrandCreateForm, MatchesWithCreateForm, ProductCreateForm, ProductUpdateForm, ReviewCreateForm,
+                AddToCartForm,)
+from .models import Category, Review, Brand, MatchesWith, Product, OrderItem, DeliveryInfo
 from users.models import CustomUser
 # Create your views here.
 
@@ -158,6 +159,40 @@ class ProductPageReviewCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['product_page_review'] = self
         return context
+
+
+class AddToCartViev(LoginRequiredMixin, View):
+    def get(self, request, product_id, *args, **kwargs):
+        product = Product.objects.get(pk=product_id)
+        form = AddToCartForm()
+        context = {
+            'form':form,
+            'product':product
+        }
+        return render(request, 'add_to_cart.html', context)
     
+    def post(self, request,product_id, *args, **kwargs):
+        form = AddToCartForm(request.POST)
+        if form.is_valid():
+            quantity = form.cleaned_data['quantity']
+            # product_id = kwargs.get('product_id')
+            product = Product.objects.get(pk=product_id)
+            price = product.price
+            OrderItem.objects.create(user=request.user, product=product_id, quantity=quantity, price=price)
+            return redirect('cart')
+    
+    
+    
+class ShoppingCartView(LoginRequiredMixin, View):
+    template_name = 'cart.html'
+    
+    def get(self, request, *args, **kwargs):
+        cart_items = OrderItem.objects.filter(user=request.user, buy=False)
+
+        context = {
+            'cart_items': cart_items,
+        }
+
+        return render(request, self.template_name, context)
     
     

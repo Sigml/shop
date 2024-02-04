@@ -23,7 +23,8 @@ from users.views import (RegisterView, LoginView, LogoutView, EmailVerifyView, R
                         UserProfileUpdateView )
 from shop.views import (main, CategoryAdminCreateView, CategoryAdminListView, CategoryAdminDeleteView, BrandAdminListView, BrandAdminCreateView, BrandAdminDeleteView, 
                         MatchesWithAdminListView, MatchesWithAdminCreateView, MatchesWithAdminDeleteView, ProductAdminListView, ProductAdminCreateView, 
-                        ProductAdminDeleteView, ProductAdminUpdateView, ProductInCategoryListView, CategoryAdminUpdateView, ProductPageListView, ProductPageReviewCreateView
+                        ProductAdminDeleteView, ProductAdminUpdateView, ProductInCategoryListView, CategoryAdminUpdateView, ProductPageListView, 
+                        ProductPageReviewCreateView, AddToCartViev, ShoppingCartView
                         )
 
 
@@ -57,6 +58,8 @@ urlpatterns = [
     path('<category>/', ProductInCategoryListView.as_view(), name='products'),
     path('<category>/<int:pk>/', ProductPageListView.as_view(), name='product_info'),
     path('<category>/<pk>/review/', ProductPageReviewCreateView.as_view(), name='product_review'),
+    path('add_to_cart/<int:pk>/', AddToCartViev.as_view(), name='add_to_cart'),
+    path('cart/', ShoppingCartView.as_view(), name='cart')
     
 
 ]

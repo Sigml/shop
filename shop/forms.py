@@ -1,4 +1,4 @@
-from .models import Category, Review, Brand, MatchesWith, Product
+from .models import Category, Review, Brand, MatchesWith, Product, OrderItem, DeliveryInfo
 from django import forms
 from django.forms import CharField, TextInput, ChoiceField, Select, ClearableFileInput, CheckboxInput, SelectMultiple
 
@@ -178,3 +178,7 @@ class ReviewCreateForm(forms.ModelForm):
                 'class': 'form-control'
             })
         }
+
+
+class AddToCartForm(forms.Form):
+    quantity = forms.IntegerField(min_value=1, initial=1, label='Ilość: ')

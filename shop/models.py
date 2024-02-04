@@ -62,6 +62,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     date_added = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    buy = models.BooleanField(default=False)
     
     
 class DeliveryInfo(models.Model):
