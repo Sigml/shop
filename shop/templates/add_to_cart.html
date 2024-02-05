@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div>
-    <h1>Dodaj do koszyka</h1>
-    
+<h1>Dodaj do koszyka</h1>
+<div class='add_to_cart'>
+    <img src="{{ product.images.url }}" alt="{{ product.images }}">
       {{ product.name }}
     <form method="post">
       {% csrf_token %}
