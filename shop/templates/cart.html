@@ -2,14 +2,42 @@
 
 {% block content %}
   <h1>Koszyk</h1>
-  <h3>Twoje zamowinie</h3>
-  {% if cart_items %}
-    <ul>
-      {% for item in cart_items %}
-        <li>{{ item.product.name }} - Ilosc: {{ item.quantity }} - Cena: {{ item.price }}</li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>Your cart is empty.</p>
-  {% endif %}
-{% endblock %}
+  <h3>Twoje zamówienie</h3>
+  <div class='cart'>
+    {% if cart_items %}
+      <div class='left_column'>
+        {% for item in cart_items %}
+          <img src="{{ item.product.images.url }}" alt="{{ item.product.images }}">
+        {% endfor %}
+      </div>
+      <div class='right_column'>
+        {% with total_quantity=0 total_price=0 %}
+          {% for item in cart_items %}
+            <div>
+              <p>{{ item.product.name }}</p>
+              <p>Ilość: {{ item.quantity }}</p>
+              {% if item.product.discount_price %}
+                <p>Cena za sztukę: {{ item.product.discount_price }}</p>
+                {% with item_total=item.quantity * item.product.discount_price %}
+                  {% with total_price=total_price+item_total %}
+                  {% endwith %}
+                {% endwith %}
+              {% else %}
+                <p>Cena za sztukę: {{ item.product.price }}</p>
+                {% with item_total=item.quantity * item.product.price %}
+                  {% with total_price=total_price+item_total %}
+                  {% endwith %}
+                {% endwith %}
+              {% endif %}
+              <a href="{% url 'cart_delete' pk=item.pk %}">Usuń z koszyka</a>
+            </div>
+            {% with total_quantity=total_quantity+item.quantity %}
+          {% endfor %}
+        {% endwith %}
+        <p>Łączna ilość: {{ total_quantity }}</p>
+        <p>Łączna cena: {{ total_price }}</p>
+      </div>
+    {% else %}
+      <p>Koszyk pusty</p>
+    {% en
+

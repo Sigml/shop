@@ -5,6 +5,7 @@
             {% csrf_token %}
             <label>Email:</label>
             {{ form.email }}
+            <br>
             <label>Hasło:</label>
             {{ form.password }}
             {% if form.errors %}
@@ -16,6 +17,7 @@
                     {% endfor %}
                 </div>
             {% endif %}
+            <br>
             <button type="submit">Załoguj</button>
             <h2>Nie masz konta <a href="{% url 'registration' %}">Zarejestruj się</a> </h2>
             <h2> <a href="{% url 'reset_password' %}">Nie pamiętasz hasła?</a> </h2>

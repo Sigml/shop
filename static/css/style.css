@@ -104,6 +104,7 @@ button {
   border: none;
   cursor: pointer;
   font-size: 16px;
+  margin-left: 210px;
 }
 
 button:hover {
@@ -129,14 +130,19 @@ a:hover {
   color: #555;
 }
 
-/* Zmiana koloru dla linków wewnątrz h2 */
+h2 {
+  text-align: center;
+}
+
 h2 a {
-  color: #0481ffef; /* Domyślny kolor linków */
+  color: #0481ffef; 
 }
 
 h2 a:hover {
-  color: #0056b3; /* Kolor linków po najechaniu myszką */
+  color: #0056b3; 
 }
+
+
 
 
 .user_update label {
@@ -406,3 +412,37 @@ form {
   text-align: right; 
 }
 
+.add_to_cart button {
+  float: right; 
+}
+
+.cart {
+  display: block;
+  justify-content: left;
+}
+
+
+.left_column {
+  margin-bottom: 20px; 
+}
+
+.right_column {
+  margin-bottom: 20px; 
+  justify-content: right;
+}
+
+.cart img {
+  max-width: 100px;
+}
+
+.cart p {
+  margin: 5px 0;
+}
+
+.cart a {
+  color: #ff0000;
+}
+
+.cart a:hover {
+  text-decoration: underline;
+}

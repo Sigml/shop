@@ -187,11 +187,20 @@ class ShoppingCartView(LoginRequiredMixin, View):
     
     def get(self, request, *args, **kwargs):
         cart_items = OrderItem.objects.filter(user=request.user, buy=False)
+        total_quantity = sum(item.quantity for item in cart_items)
+        total_price = sum(item.quantity * item.product.price for item in cart_items)
 
         context = {
             'cart_items': cart_items,
+            'total_quantity':total_quantity,
+            'total_price':total_price,
         }
 
         return render(request, self.template_name, context)
     
     
+    
+class DeleteShoppingCartDeleteView(LoginRequiredMixin, DeleteView):
+    model = OrderItem
+    template_name = 'confirm_delete.html'
+    success_url = reverse_lazy('cart')

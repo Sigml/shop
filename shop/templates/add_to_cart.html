@@ -3,7 +3,12 @@
 <h1>Dodaj do koszyka</h1>
 <div class='add_to_cart'>
     <img src="{{ product.images.url }}" alt="{{ product.images }}">
-      {{ product.name }}
+    <p>{{ product.name }}</p>
+      {% if product.discount_price %}
+      <p>Cena: {{ product.discount_price }}</p>
+      {% else %}
+      <p>Cena: {{ product.price }}</p>
+      {% endif %}
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
