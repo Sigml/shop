@@ -1,3 +1,6 @@
+from django.db.models.query import QuerySet
+from django.core.mail import send_mail
+from django.conf import settings
 from django.views import View
 from django.http import HttpResponse
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
@@ -5,7 +8,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from .forms import (CategoryCreateForm, ReviewCreateForm, BrandCreateForm, MatchesWithCreateForm, ProductCreateForm, ProductUpdateForm, ReviewCreateForm,
-                AddToCartForm,)
+                AddToCartForm, DeliveryInfoForm)
 from .models import Category, Review, Brand, MatchesWith, Product, OrderItem, DeliveryInfo
 from users.models import CustomUser
 # Create your views here.
@@ -204,3 +207,44 @@ class DeleteShoppingCartDeleteView(LoginRequiredMixin, DeleteView):
     model = OrderItem
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('cart')
+    
+    
+class DeliveryInfoCreateView(LoginRequiredMixin, CreateView):
+    model = DeliveryInfo
+    form_class = DeliveryInfoForm
+    template_name = 'delivery_info.html'
+    success_url = reverse_lazy('delivery_succes')
+    
+    def form_valid(self, form):
+        form.instance.order_item = get_object_or_404(OrderItem, pk=self.kwargs['order_item_id'])
+        return super().form_valid(form)
+
+
+class DeliverySuccesSendEmailView(LoginRequiredMixin, View):
+    def get(self, request):
+        cart_items = OrderItem.objects.filter(user=request.user, buy=False)
+        total_price = sum(item.quantity * item.product.price for item in cart_items)
+        delivery_info = DeliveryInfo.objects.filter(order_item=cart_items.first()).latest('id')
+
+        
+        subject = 'Potwierdzenie zamówienia'
+        message = f'Dziękujemy za złożenie zamówienia.\n\n'
+        message += f'Twoje zamówienie:\n'
+        for item in cart_items:
+            message += f'- {item.product.name} (ilość: {item.quantity})\n'
+        message += f'Koszt zamówienia: {total_price}\n\n'
+        message += f'Dane odbiorcy:\n'
+        message += f'Imię i nazwisko: {delivery_info.recipient_name}\n'
+        message += f'Adres dostawy: {delivery_info.addres()}'
+    
+        sender_email = settings.EMAIL_HOST_USER
+        recipient_email = [request.user.email]
+        
+        send_mail(subject, message, sender_email, recipient_email, fail_silently=False)  
+        
+        carts_items = OrderItem.objects.filter(user=request.user, buy=False)
+        for item in carts_items:
+            item.buy = True
+            item.save()
+            
+        return redirect('main')    

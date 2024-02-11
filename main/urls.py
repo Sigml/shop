@@ -24,7 +24,7 @@ from users.views import (RegisterView, LoginView, LogoutView, EmailVerifyView, R
 from shop.views import (main, CategoryAdminCreateView, CategoryAdminListView, CategoryAdminDeleteView, BrandAdminListView, BrandAdminCreateView, BrandAdminDeleteView, 
                         MatchesWithAdminListView, MatchesWithAdminCreateView, MatchesWithAdminDeleteView, ProductAdminListView, ProductAdminCreateView, 
                         ProductAdminDeleteView, ProductAdminUpdateView, ProductInCategoryListView, CategoryAdminUpdateView, ProductPageListView, 
-                        ProductPageReviewCreateView, AddToCartViev, ShoppingCartView, DeleteShoppingCartDeleteView
+                        ProductPageReviewCreateView, AddToCartViev, ShoppingCartView, DeleteShoppingCartDeleteView, DeliveryInfoCreateView, DeliverySuccesSendEmailView
                         )
 
 
@@ -33,7 +33,9 @@ urlpatterns = [
     path('', main, name='main'),
     path('add_to_cart/<int:pk>/', AddToCartViev.as_view(), name='add_to_cart'),
     path('cart/', ShoppingCartView.as_view(), name='cart'),
-    path('cart_delete/<int:pk>', DeleteShoppingCartDeleteView.as_view(), name='cart_delete'),
+    path('cart_delete/<int:pk>/', DeleteShoppingCartDeleteView.as_view(), name='cart_delete'),
+    path('delivery/<int:order_item_id>/', DeliveryInfoCreateView.as_view(), name='delivery'),
+    path('delivery_succes/', DeliverySuccesSendEmailView.as_view(), name='delivery_succes'),
     path('registration/', RegisterView.as_view(), name='registration'),
     path('user/login/', LoginView.as_view(), name='login'),
     path('user/logout/', LogoutView.as_view(), name='logout'),

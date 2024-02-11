@@ -182,3 +182,50 @@ class ReviewCreateForm(forms.ModelForm):
 
 class AddToCartForm(forms.Form):
     quantity = forms.IntegerField(min_value=1, initial=1, label='Ilość: ')
+    
+    
+class DeliveryInfoForm(forms.ModelForm):
+    class Meta:
+        model = DeliveryInfo
+        fields = ('recipient_name', 'state', 'city', 'street', 'house_number', 'apartment_number', 'zip_code', 'phone_number', 'shipping_method', 'method_pay')
+        widgets = {
+            'recipient_name': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Imię i Nazwisko'
+            }),
+            'state': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Wojewódstwo'
+            }),
+            'city': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Miasto'
+            }),
+            'street': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ulica'
+            }),
+            'house_number': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Numer domu'
+            }),
+            'apartment_number': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Numer mieszkania'
+            }),
+            'zip_code':  TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Kod pocztowy'
+            }), 
+            'phone_number': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Numer telefonu'
+            }),
+            'shipping_method':Select(attrs={
+                'class': 'form-control'
+            }),
+            'method_pay':Select(attrs={
+                'class': 'form-control'
+            })
+            
+        }

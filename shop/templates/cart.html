@@ -11,33 +11,31 @@
         {% endfor %}
       </div>
       <div class='right_column'>
-        {% with total_quantity=0 total_price=0 %}
           {% for item in cart_items %}
             <div>
               <p>{{ item.product.name }}</p>
               <p>Ilość: {{ item.quantity }}</p>
               {% if item.product.discount_price %}
-                <p>Cena za sztukę: {{ item.product.discount_price }}</p>
-                {% with item_total=item.quantity * item.product.discount_price %}
-                  {% with total_price=total_price+item_total %}
-                  {% endwith %}
-                {% endwith %}
+                <p>Cena: {{ item.product.discount_price }}</p>
               {% else %}
-                <p>Cena za sztukę: {{ item.product.price }}</p>
-                {% with item_total=item.quantity * item.product.price %}
-                  {% with total_price=total_price+item_total %}
-                  {% endwith %}
-                {% endwith %}
+                <p>Cena: {{ item.product.price }}</p>
               {% endif %}
               <a href="{% url 'cart_delete' pk=item.pk %}">Usuń z koszyka</a>
             </div>
-            {% with total_quantity=total_quantity+item.quantity %}
           {% endfor %}
-        {% endwith %}
+      </div>
+      <div class='all_price'>
         <p>Łączna ilość: {{ total_quantity }}</p>
         <p>Łączna cena: {{ total_price }}</p>
+        <button type='submit'>
+          {% for item in cart_items %}
+        <a href="{% url 'delivery' order_item_id=item.pk%}">Dalej</a>
+        {% endfor %}
+        </button>
+        
       </div>
     {% else %}
       <p>Koszyk pusty</p>
-    {% en
-
+    {% endif %}
+  </div>
+{% endblock %}

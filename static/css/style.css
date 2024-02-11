@@ -417,32 +417,84 @@ form {
 }
 
 .cart {
-  display: block;
-  justify-content: left;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-
 .left_column {
-  margin-bottom: 20px; 
+  flex: 1;
 }
 
 .right_column {
-  margin-bottom: 20px; 
-  justify-content: right;
+  flex: 2;
+  margin-left: 600px; 
 }
 
 .cart img {
   max-width: 100px;
+  display: block;
+  margin-bottom: 10px; 
 }
 
-.cart p {
-  margin: 5px 0;
+.right_column div {
+  margin-bottom: 20px; 
 }
 
-.cart a {
-  color: #ff0000;
+.right_column div p {
+  margin: 5px 0; 
 }
 
-.cart a:hover {
-  text-decoration: underline;
+.all_price {
+  flex-basis: 100%; 
+  margin-top: 20px; 
+  text-align: right; 
+}
+
+.cart a[href*="cart_delete"] {
+  color: red;
+}
+
+.cart a[href*="delivery"] {
+  color: white;
+}
+
+.delivery_info {
+  max-width: 400px; /* Maksymalna szerokość formularza */
+  margin: 0 auto; /* Wyśrodkowanie formularza */
+  padding: 20px; /* Dodanie wewnętrznego odstępu */
+  background-color: #f9f9f9; /* Kolor tła formularza */
+  border: 1px solid #ccc; /* Ramka formularza */
+  border-radius: 5px; /* Zaokrąglenie rogów formularza */
+}
+
+.delivery_info label {
+  display: block; /* Wyświetlenie etykiety w osobnej linii */
+  margin-bottom: 5px; /* Dodanie odstępu na dole etykiety */
+}
+
+.delivery_info input[type="text"],
+.delivery_info select {
+  width: 100%; /* Szerokość pól tekstowych i rozwijanych list */
+  padding: 10px; /* Dodanie wewnętrznego odstępu */
+  margin-bottom: 15px; /* Dodanie odstępu na dole pól */
+  box-sizing: border-box; /* Uwzględnienie paddingu i borderu w całkowitej szerokości */
+}
+
+.buttons {
+  margin-top: 20px; /* Dodajemy odstęp między przyciskami a resztą formularza */
+  text-align: center; /* Wyśrodkowanie przycisków */
+}
+
+.buttons button {
+  margin: 0 5px; /* Dodajemy odstęp między przyciskami */
+  padding: 10px 20px; /* Dodajemy wewnętrzny odstęp przycisków */
+  background-color: #333; /* Kolor tła przycisków */
+  color: #fff; /* Kolor tekstu przycisków */
+  border: none; /* Usuwamy obramowanie przycisków */
+  cursor: pointer; /* Zmieniamy kursor na wskaźnik */
+  border-radius: 5px; /* Zaokrąglamy rogi przycisków */
+}
+
+.buttons button:hover {
+  background-color: #555; /* Zmiana koloru tła po najechaniu myszką */
 }

@@ -66,12 +66,33 @@ class OrderItem(models.Model):
     
     
 class DeliveryInfo(models.Model):
+    SHIPPING_METHOD_CHOISES = [
+        ('DHL', 'DHL'),
+        ('Poczta polska', 'Poczta polska'),
+        ('Fedex', 'Fedex'),
+        ('Odbior w sklepie', 'Odbior w sklepie')
+    ]
+    
+    METHOD_PAY_CHOICES = [
+        ('przełew na konto', 'przełew na konto'),
+        ('oplata za pobraniem', 'oplata za pobraniem'),
+        ('BLIK', 'BLIK'),
+        ('gotówka', 'gotówka')
+    ]
+    
     order_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
     recipient_name = models.CharField(max_length=100)
     city = models.CharField(max_length=255)
+    street = models.CharField(max_length=255)
+    house_number = models.CharField(max_length=255)
+    apartment_number = models.CharField(max_length=255, null=True)
     state = models.CharField(max_length=255)
     zip_code = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20)
-    shipping_method = models.CharField(max_length=255)
-    method_pay = models.CharField(max_length=50)
+    shipping_method = models.CharField(max_length=255, choices=SHIPPING_METHOD_CHOISES)
+    method_pay = models.CharField(max_length=50, choices=METHOD_PAY_CHOICES)
     is_delivered = models.BooleanField(default=False)
+    
+    def addres(self):
+        return f'Wojewódstwo: {self.state},  kod pocztowy: {self.zip_code}, miasto: {self.city}, numer domu: {self.house_number}, numer mieszkania: {self.apartment_number}'
+        
