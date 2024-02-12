@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import CustomUser
 
 
+
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = (
         'username', 'first_name', 'last_name', 'date_of_birth', 'email', 'number_phone', 'password',
@@ -13,3 +14,4 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+

@@ -242,8 +242,15 @@ class DeliverySuccesSendEmailView(LoginRequiredMixin, View):
         
         send_mail(subject, message, sender_email, recipient_email, fail_silently=False)  
         
-        carts_items = OrderItem.objects.filter(user=request.user, buy=False)
-        for item in carts_items:
+        for item in cart_items:
+            product = item.product
+            if item.quantity > product.stock_quantity:
+                return HttpResponse('Zamówiono więcej produktu niż jest dostępne w magazynie.')
+            product.stock_quantity -= item.quantity
+            product.save()
+            
+            
+        for item in cart_items:
             item.buy = True
             item.save()
             

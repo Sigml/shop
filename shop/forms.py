@@ -219,7 +219,8 @@ class DeliveryInfoForm(forms.ModelForm):
             }), 
             'phone_number': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Numer telefonu'
+                'placeholder': 'Numer telefonu',
+                'type':'tel',
             }),
             'shipping_method':Select(attrs={
                 'class': 'form-control'
@@ -229,3 +230,7 @@ class DeliveryInfoForm(forms.ModelForm):
             })
             
         }
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['apartment_number'].required = False

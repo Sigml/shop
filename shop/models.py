@@ -94,5 +94,7 @@ class DeliveryInfo(models.Model):
     is_delivered = models.BooleanField(default=False)
     
     def addres(self):
-        return f'Wojewódstwo: {self.state},  kod pocztowy: {self.zip_code}, miasto: {self.city}, numer domu: {self.house_number}, numer mieszkania: {self.apartment_number}'
-        
+        if self.apartment_number is not None:
+            return f'Województwo: {self.state}, kod pocztowy: {self.zip_code}, miasto: {self.city}, numer domu: {self.house_number}, numer mieszkania: {self.apartment_number}'
+        else:
+            return f'Województwo: {self.state}, kod pocztowy: {self.zip_code}, miasto: {self.city}, numer domu: {self.house_number}'
