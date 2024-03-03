@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='all_delivery'>
+  <ul>
+    {% for delivery_info in delivery_item %}
+      <li>Numer zamówienia: {{ delivery_info.order_item.pk }}</li>
+      <li>User: {{ delivery_info.order_item.user.username }}</li>
+      <li>Data Zamówienia: {{ delivery_info.order_item.date_added }}</li>
+      <a href={% url 'delivery_admin_info' pk=delivery_info.pk%}>scszególy zamówienia</a>
+      <br><br>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

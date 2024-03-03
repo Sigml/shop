@@ -93,8 +93,10 @@ class DeliveryInfo(models.Model):
     method_pay = models.CharField(max_length=50, choices=METHOD_PAY_CHOICES)
     is_delivered = models.BooleanField(default=False)
     
-    def addres(self):
+    def address(self):
         if self.apartment_number is not None:
             return f'Województwo: {self.state}, kod pocztowy: {self.zip_code}, miasto: {self.city}, numer domu: {self.house_number}, numer mieszkania: {self.apartment_number}'
         else:
             return f'Województwo: {self.state}, kod pocztowy: {self.zip_code}, miasto: {self.city}, numer domu: {self.house_number}'
+
+

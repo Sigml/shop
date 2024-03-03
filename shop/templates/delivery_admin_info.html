@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for item in delivery_info %}
+        <p>Imię odbiorcy: {{ item.recipient_name }}</p>
+        <p>Adres: {{ item.address }}</p>
+        <p>Numer telefonu: {{ item.phone_number }}</p>
+        <p>Dostawa: {{ item.get_shipping_method_display }}</p>
+        <p>Płatność: {{ item.get_method_pay_display }}</p>
+        <p>Czy wysłano: 
+            {% if not item.is_delivered %}
+                nie
+            {% else %}
+                tak
+            {% endif %}
+        </p>
+        
+        <p>Zamówienie: {{ item.order_item.product.name }}</p>
+        <p>Ilość: {{ item.order_item.quantity }}</p>
+        
+        {% if not item.is_delivered %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <button type="submit">Wyślij zamówienie</button>
+            </form>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

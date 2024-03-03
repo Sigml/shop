@@ -2,9 +2,10 @@ from django.db.models.query import QuerySet
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views import View
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from .forms import (CategoryCreateForm, ReviewCreateForm, BrandCreateForm, MatchesWithCreateForm, ProductCreateForm, ProductUpdateForm, ReviewCreateForm,
@@ -118,7 +119,58 @@ class ProductAdminDeleteView(AdminRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('products_all')
     
+
+class DeliveryFalseAdminListView(AdminRequiredMixin, ListView):
+    Model = DeliveryInfo
+    template_name = 'delivery_all.html'
+    context_object_name = 'delivery_item'
     
+    def get_queryset(self):
+        return DeliveryInfo.objects.filter(is_delivered=False)
+    
+    
+class DeliveryTrueAdminListView(AdminRequiredMixin, ListView):
+    Model = DeliveryInfo
+    template_name = 'delivery_all.html'
+    context_object_name = 'delivery_item'
+    
+    def get_queryset(self):
+        try:
+            return DeliveryInfo.objects.filter(is_delivered=True)
+        except ObjectDoesNotExist:
+            raise Http404("Nie znaleziono żądanego obiektu.")
+    
+
+class DeliveryInfoAdminListView(AdminRequiredMixin, View):
+    def get(self, request, pk):
+        try:
+            order_item = OrderItem.objects.get(pk=pk)
+            delivery_info = DeliveryInfo.objects.filter(order_item=order_item)
+            context = {
+                'delivery_info': delivery_info,
+            }
+            return render(request, 'delivery_admin_info.html', context)
+        except ObjectDoesNotExist: 
+            raise Http404("Nie znaleziono żądanego obiektu.")
+    
+    def post(self, request, pk):
+            order_item = OrderItem.objects.get(pk=pk)
+            delivery_info = DeliveryInfo.objects.filter(order_item=order_item)
+            delivery_info.update(is_delivered=True)
+            
+            subject = 'Potwierdzenie wysłania zamówienia'
+            message = 'Dziękujemy za złożenie zamówienia.\n\n'
+            message += 'Twoje zamówienie zostało wysłane, oczekuj wiadomości od kuriera.\n'
+            
+            sender_email = settings.EMAIL_HOST_USER
+            recipient_email = [request.user.email]
+            
+            send_mail(subject, message, sender_email, recipient_email, fail_silently=False)
+            
+
+            return redirect('delivery_all')
+        
+        
 class ProductInCategoryListView(ListView):
     model = Product
     template_name = 'product.html'
@@ -233,6 +285,7 @@ class DeliverySuccesSendEmailView(LoginRequiredMixin, View):
         for item in cart_items:
             message += f'- {item.product.name} (ilość: {item.quantity})\n'
         message += f'Koszt zamówienia: {total_price}\n\n'
+        message += f'Numer zamówienia {item.pk}\n'
         message += f'Dane odbiorcy:\n'
         message += f'Imię i nazwisko: {delivery_info.recipient_name}\n'
         message += f'Adres dostawy: {delivery_info.addres()}'
